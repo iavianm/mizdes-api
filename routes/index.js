@@ -10,7 +10,6 @@ router.use(userRouter);
 router.use(bookingRouter);
 
 router.use(auth, (req, res, next) => {
-  console.log(req);
   next(new Error404("Запрашиваемый ресурс не найден"));
 });
 

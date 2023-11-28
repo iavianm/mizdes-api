@@ -10,10 +10,10 @@ const {
 } = require("../controllers/bookings");
 const { bookingBody, bookingId } = require("../utils/joiSchemes");
 
-router.get("/bookings", auth, getBookings);
-router.post("/bookings", celebrate(bookingBody), createBooking);
+router.get("/api/bookings", auth, getBookings);
+router.post("/api/bookings", celebrate(bookingBody), createBooking);
 router.delete(
-  "/bookings/:bookingId",
+  "/api/bookings/:bookingId",
   auth,
   celebrate(bookingId),
   deleteBooking,
