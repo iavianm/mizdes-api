@@ -11,7 +11,7 @@ const {
 const { bookingBody, bookingId } = require("../utils/joiSchemes");
 
 router.get("/bookings", auth, getBookings);
-router.post("/bookings", auth, celebrate(bookingBody), createBooking);
+router.post("/bookings", celebrate(bookingBody), createBooking);
 router.delete(
   "/bookings/:bookingId",
   auth,
