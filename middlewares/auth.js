@@ -7,7 +7,6 @@ const {
 } = require("../config/constants");
 
 const authMiddleware = (req, res, next) => {
-  console.log(req);
   try {
     const token = req.cookies.jwt;
 

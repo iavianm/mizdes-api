@@ -4,19 +4,19 @@ const auth = require("../middlewares/auth");
 
 const router = express.Router();
 const {
-  updateUser,
+  // updateUser,
   getCurrentUser,
   loginUser,
-  createUser,
+  // createUser,
   logoutUser,
 } = require("../controllers/users");
 const { userLogin, userCreate, userUpdate } = require("../utils/joiSchemes");
 
 router.post("/api/signin", celebrate(userLogin), loginUser);
-router.post("/api/signup", celebrate(userCreate), createUser);
+// router.post("/api/signup", celebrate(userCreate), createUser);
 router.get("/signout", auth, logoutUser);
 
-router.get("/users/me", auth, getCurrentUser);
-router.patch("/users/me", auth, celebrate(userUpdate), updateUser);
+router.get("/api/users/me", auth, getCurrentUser);
+// router.patch("/users/me", auth, celebrate(userUpdate), updateUser);
 
 module.exports = router;
