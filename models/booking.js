@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const movieSchema = new mongoose.Schema(
   {
-    title: {
+    cottageType: {
       type: String,
     },
     name: {
@@ -21,7 +21,7 @@ const movieSchema = new mongoose.Schema(
       type: Number,
     },
     phone: {
-      type: Number,
+      type: String,
       required: [true, 'Поле "phone" должно быть заполнено'],
     },
     email: {

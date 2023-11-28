@@ -20,7 +20,7 @@ const getBookings = async (req, res, next) => {
 const createBooking = async (req, res, next) => {
   try {
     const {
-      title,
+      cottageType,
       name,
       arrivalDate,
       departureDate,
@@ -31,7 +31,7 @@ const createBooking = async (req, res, next) => {
     } = req.body;
 
     const booking = await Booking.create({
-      title,
+      cottageType,
       name,
       arrivalDate,
       departureDate,
