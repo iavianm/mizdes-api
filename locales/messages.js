@@ -6,20 +6,20 @@ const userNotCreate = "Пользователь не создан";
 const successLogin = "Успешная аутентификация";
 const successLogout = "До свидания";
 
-const movieNotCreate = "Фильм не создан";
-const movieIdNotFound = "Нет фильма с таким id";
-const movieNotDelete = "У вас нет прав на удаление этого фильма";
-const movieDelete = "Фильм успешно удален";
+const bookingNotCreate = "Бронирование не создано";
+const bookingIdNotFound = "Нет бронирования с таким id";
+const bookingNotDelete = "У вас нет прав на удаление этого бронирования";
+const bookingDelete = "Бронирование удалено";
 
 module.exports = {
-    userEmailError,
-    userCredentialsError,
-    successLogout,
-    successLogin,
-    userNotCreate,
-    userIdNotFound,
-    movieIdNotFound,
-    movieNotCreate,
-    movieDelete,
-    movieNotDelete,
+  userEmailError,
+  userCredentialsError,
+  successLogout,
+  successLogin,
+  userNotCreate,
+  userIdNotFound,
+  bookingIdNotFound,
+  bookingNotCreate,
+  bookingDelete,
+  bookingNotDelete,
 };
