@@ -54,12 +54,12 @@ const bookingBody = {
       phone: Joi.string()
         .pattern(/^\+?[0-9\- ]+$/)
         .min(10)
-        .max(12)
+        .max(18)
         .required()
         .messages({
           "string.pattern.base": 'Поле "phone" должно содержать только цифры',
           "string.min": 'Поле "phone" должно быть длиной не менее 10 символов',
-          "string.max": 'Поле "phone" должно быть длиной не более 12 символов',
+          "string.max": 'Поле "phone" должно быть длиной не более 18 символов',
           "any.required": 'Поле "phone" должно быть заполнено',
         }),
     })

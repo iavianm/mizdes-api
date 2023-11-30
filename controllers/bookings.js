@@ -1,3 +1,4 @@
+const path = require("path");
 const Booking = require("../models/booking");
 const Error404 = require("../errors/error404");
 const Error403 = require("../errors/error403");
@@ -7,6 +8,17 @@ const {
   bookingNotDelete,
   bookingDelete,
 } = require("../locales/messages");
+const { sendEmail } = require("../helpers/emailHelper");
+const handlebars = require("handlebars");
+const fs = require("fs");
+const { formatDate } = require("../helpers/formatDate");
+const { sendTelegramMessage } = require("../helpers/telegramHelper");
+
+let templateString = fs.readFileSync(
+  path.join(__dirname, "../template/template.hbs"),
+  "utf-8",
+);
+let template = handlebars.compile(templateString);
 
 const getBookings = async (req, res, next) => {
   try {
@@ -43,7 +55,33 @@ const createBooking = async (req, res, next) => {
     if (!booking) {
       throw new Error404(bookingNotCreate);
     } else {
-      res.status(201).send(booking);
+      let html = template({
+        cottageType: `${booking.cottageType || "любой"}`,
+        arrivalDate: `${booking.arrivalDate || "не указано"}`,
+        departureDate: `${booking.departureDate || "не указано"}`,
+        adults: `${booking.adults || "не указано"}`,
+        children: `${booking.children || "не указано"}`,
+        name: `${booking.name || "не указано"}`,
+        phone: `${booking.phone}`,
+        email: `${booking.email || "не указано"}`,
+        date: `${formatDate(booking.createdAt)}`,
+      });
+
+      let emailData = {
+        to: "iavianm@mail.ru",
+        subject: "Новое бронирование",
+        html: html,
+      };
+
+      try {
+        await sendEmail(emailData);
+        // await sendTelegramMessage(-4025896495, booking);
+        res.status(201).send({ message: "Бронирование создано" });
+      } catch (error) {
+        res.status(500).send({
+          message: "Ошибка при создании бронирования или отправке письма",
+        });
+      }
     }
   } catch (err) {
     next(err);
