@@ -66,7 +66,7 @@ const createBooking = async (req, res, next) => {
       });
 
       let emailData = {
-        to: "iavianm@mail.ru",
+        to: process.env.EMAIL_USERNAME,
         subject: "Новое бронирование",
         html: html,
       };
