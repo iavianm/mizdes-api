@@ -68,7 +68,7 @@ const bookingBody = {
 
 const bookingId = {
   [Segments.PARAMS]: Joi.object().keys({
-    movieId: Joi.string().required().hex().messages({
+    bookingId: Joi.string().required().hex().messages({
       "string.base": 'Поле "bookingId" должно быть строкой',
       "string.empty": 'Поле "bookingId" должно быть заполнено',
       "string.hex":

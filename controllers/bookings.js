@@ -1,11 +1,9 @@
 const path = require("path");
 const Booking = require("../models/booking");
 const Error404 = require("../errors/error404");
-const Error403 = require("../errors/error403");
 const {
   bookingNotCreate,
   bookingIdNotFound,
-  bookingNotDelete,
   bookingDelete,
 } = require("../locales/messages");
 const { sendEmail } = require("../helpers/emailHelper");
@@ -75,7 +73,7 @@ const createBooking = async (req, res, next) => {
 
       try {
         await sendEmail(emailData);
-        // await sendTelegramMessage(-4025896495, booking);
+        await sendTelegramMessage(-4025896495, booking);
         res.status(201).send({ message: "Бронирование создано" });
       } catch (error) {
         res.status(500).send({
@@ -91,16 +89,11 @@ const createBooking = async (req, res, next) => {
 const deleteBooking = async (req, res, next) => {
   try {
     const { bookingId } = req.params;
-    const userId = req.user._id;
 
     const booking = await Booking.findById(bookingId);
 
     if (!booking) {
       throw new Error404(bookingIdNotFound);
-    }
-
-    if (booking.owner.toString() !== userId) {
-      throw new Error403(bookingNotDelete);
     }
 
     await booking.deleteOne();
