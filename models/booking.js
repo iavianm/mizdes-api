@@ -27,6 +27,22 @@ const movieSchema = new mongoose.Schema(
     email: {
       type: String,
     },
+    additionalOptions: {
+      type: [String],
+      enum: [
+        "мангал",
+        "квадроцикл",
+        "эндуро",
+        "снегоход",
+        "собака",
+        "самовар",
+        "ранний заезд",
+        "поздний заезд",
+        "ранний выезд",
+        "поздний выезд",
+      ],
+      default: [],
+    },
   },
   {
     timestamps: true,

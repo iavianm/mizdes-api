@@ -59,6 +59,7 @@ const updateBooking = async (req, res, next) => {
       children,
       phone,
       email,
+      additionalOptions,
     } = req.body;
     const booking = await Booking.findByIdAndUpdate(
       bookingId,
@@ -71,6 +72,7 @@ const updateBooking = async (req, res, next) => {
         children,
         phone,
         email,
+        additionalOptions,
       },
       { new: true, runValidators: true },
     );
@@ -95,6 +97,7 @@ const createBooking = async (req, res, next) => {
       children,
       phone,
       email,
+      additionalOptions,
     } = req.body;
 
     const booking = await Booking.create({
@@ -106,10 +109,14 @@ const createBooking = async (req, res, next) => {
       children,
       phone,
       email,
+      additionalOptions,
     });
     if (!booking) {
       throw new Error404(bookingNotCreate);
     } else {
+      const additionalOptionsString =
+        booking.additionalOptions?.join(", ") || "не указано";
+
       let html = template({
         cottageType: `${booking.cottageType || "любой"}`,
         arrivalDate: `${booking.arrivalDate || "не указано"}`,
@@ -119,6 +126,7 @@ const createBooking = async (req, res, next) => {
         name: `${booking.name || "не указано"}`,
         phone: `${booking.phone}`,
         email: `${booking.email || "не указано"}`,
+        additionalOptions: additionalOptionsString,
         date: `${formatDate(booking.createdAt)}`,
       });
 
