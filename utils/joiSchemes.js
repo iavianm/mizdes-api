@@ -77,6 +77,32 @@ const bookingId = {
   }),
 };
 
+const bookingUpdate = {
+  [Segments.PARAMS]: Joi.object().keys({
+    bookingId: Joi.string().required().hex().messages({
+      "string.base": 'Поле "bookingId" должно быть строкой',
+      "string.empty": 'Поле "bookingId" должно быть заполнено',
+      "string.hex":
+        'Поле "bookingId" должно содержать только шестнадцатеричные символы',
+    }),
+  }),
+  [Segments.BODY]: Joi.object()
+    .keys({
+      phone: Joi.string()
+        .pattern(/^\+?[0-9\- ]+$/)
+        .min(10)
+        .max(18)
+        .required()
+        .messages({
+          "string.pattern.base": 'Поле "phone" должно содержать только цифры',
+          "string.min": 'Поле "phone" должно быть длиной не менее 10 символов',
+          "string.max": 'Поле "phone" должно быть длиной не более 18 символов',
+          "any.required": 'Поле "phone" должно быть заполнено',
+        }),
+    })
+    .options({ allowUnknown: true }),
+};
+
 const userLogin = {
   [Segments.BODY]: Joi.object({
     email: Joi.string().email().custom(isEmail).required().messages({
@@ -140,4 +166,5 @@ module.exports = {
   userLogin,
   userCreate,
   userUpdate,
+  bookingUpdate,
 };

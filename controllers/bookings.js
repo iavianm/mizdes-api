@@ -5,12 +5,16 @@ const {
   bookingNotCreate,
   bookingIdNotFound,
   bookingDelete,
+  userIdNotFound,
+  userEmailError,
 } = require("../locales/messages");
 const { sendEmail } = require("../helpers/emailHelper");
 const handlebars = require("handlebars");
 const fs = require("fs");
 const { formatDate } = require("../helpers/formatDate");
 const { sendTelegramMessage } = require("../helpers/telegramHelper");
+const User = require("../models/user");
+const Error409 = require("../errors/error409");
 
 let templateString = fs.readFileSync(
   path.join(__dirname, "../template/template.hbs"),
@@ -22,6 +26,59 @@ const getBookings = async (req, res, next) => {
   try {
     const bookings = await Booking.find();
     res.send(bookings);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const showBooking = async (req, res, next) => {
+  try {
+    const { bookingId } = req.params;
+    const booking = await Booking.findById(bookingId);
+
+    if (!booking) {
+      throw new Error404(bookingIdNotFound);
+    }
+
+    res.send(booking);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const updateBooking = async (req, res, next) => {
+  try {
+    const { bookingId } = req.params;
+
+    const {
+      cottageType,
+      name,
+      arrivalDate,
+      departureDate,
+      adults,
+      children,
+      phone,
+      email,
+    } = req.body;
+    const booking = await Booking.findByIdAndUpdate(
+      bookingId,
+      {
+        cottageType,
+        name,
+        arrivalDate,
+        departureDate,
+        adults,
+        children,
+        phone,
+        email,
+      },
+      { new: true, runValidators: true },
+    );
+    if (!booking) {
+      throw new Error404(bookingIdNotFound);
+    }
+
+    res.send(booking);
   } catch (err) {
     next(err);
   }
@@ -108,4 +165,6 @@ module.exports = {
   getBookings,
   createBooking,
   deleteBooking,
+  updateBooking,
+  showBooking,
 };
