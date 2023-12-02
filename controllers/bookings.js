@@ -5,16 +5,12 @@ const {
   bookingNotCreate,
   bookingIdNotFound,
   bookingDelete,
-  userIdNotFound,
-  userEmailError,
 } = require("../locales/messages");
 const { sendEmail } = require("../helpers/emailHelper");
 const handlebars = require("handlebars");
 const fs = require("fs");
 const { formatDate } = require("../helpers/formatDate");
 const { sendTelegramMessage } = require("../helpers/telegramHelper");
-const User = require("../models/user");
-const Error409 = require("../errors/error409");
 
 let templateString = fs.readFileSync(
   path.join(__dirname, "../template/template.hbs"),
