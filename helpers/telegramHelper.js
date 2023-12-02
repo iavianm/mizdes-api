@@ -4,7 +4,11 @@ const sendTelegramMessage = async (chatId, booking) => {
   const token = process.env.TELEGRAM_TOKEN;
   const url = `https://api.telegram.org/bot${token}/sendMessage`;
 
+  const additionalOptionsString =
+    booking.additionalOptions?.join(", ") || "не указано";
+
   const newBooking = `Коттедж: ${booking.cottageType || "любой"}
+Доп.услуги: ${additionalOptionsString}
 Дата заезда: ${booking.arrivalDate || "не указано"}
 Дата выезда: ${booking.departureDate || "не указано"}
 Взрослые: ${booking.adults || "не указано"}
