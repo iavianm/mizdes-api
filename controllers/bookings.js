@@ -57,6 +57,7 @@ const updateBooking = async (req, res, next) => {
       email,
       additionalOptions,
     } = req.body;
+
     const booking = await Booking.findByIdAndUpdate(
       bookingId,
       {
@@ -76,7 +77,7 @@ const updateBooking = async (req, res, next) => {
       throw new Error404(bookingIdNotFound);
     }
 
-    res.send(booking);
+    res.send({ message: "Бронирование обновлено", booking: booking });
   } catch (err) {
     next(err);
   }
