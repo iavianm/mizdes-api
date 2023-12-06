@@ -8,7 +8,7 @@ const {
   createBooking,
   deleteBooking,
   updateBooking,
-  showBooking,
+  getLatestBookings,
 } = require("../controllers/bookings");
 const {
   bookingBody,
@@ -18,7 +18,7 @@ const {
 
 router.get("/api/bookings", auth, getBookings);
 
-router.get("/api/bookings/:bookingId", auth, showBooking);
+router.get("/api/bookings/latest", getLatestBookings);
 
 router.post("/api/bookings", celebrate(bookingBody), createBooking);
 

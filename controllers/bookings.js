@@ -27,16 +27,17 @@ const getBookings = async (req, res, next) => {
   }
 };
 
-const showBooking = async (req, res, next) => {
+const getLatestBookings = async (req, res, next) => {
   try {
-    const { bookingId } = req.params;
-    const booking = await Booking.findById(bookingId);
+    const latestRivieraBookings = await Booking.find({ cottageType: "riviera" })
+      .sort({ createdAt: -1 })
+      .limit(10);
+    const latestGrandisBookings = await Booking.find({ cottageType: "grandis" })
+      .sort({ createdAt: -1 })
+      .limit(10);
 
-    if (!booking) {
-      throw new Error404(bookingIdNotFound);
-    }
-
-    res.send(booking);
+    const bookings = [...latestRivieraBookings, ...latestGrandisBookings];
+    res.send(bookings);
   } catch (err) {
     next(err);
   }
@@ -171,5 +172,5 @@ module.exports = {
   createBooking,
   deleteBooking,
   updateBooking,
-  showBooking,
+  getLatestBookings,
 };
