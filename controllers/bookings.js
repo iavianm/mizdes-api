@@ -137,7 +137,10 @@ const createBooking = async (req, res, next) => {
       try {
         await sendEmail(emailData);
         await sendTelegramMessage(-4025896495, booking);
-        res.status(201).send({ message: "Бронирование создано" });
+        res.status(201).send({
+          message:
+            "Благодарим за бронирование. Наш менеджер скоро свяжется с вами",
+        });
       } catch (error) {
         res.status(500).send({
           message: "Ошибка при создании бронирования или отправке письма",
