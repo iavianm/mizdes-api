@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const movieSchema = new mongoose.Schema(
   {
-    cottageType: {
+    cottage: {
       type: String,
     },
     name: {
@@ -17,7 +17,7 @@ const movieSchema = new mongoose.Schema(
     adults: {
       type: Number,
     },
-    children: {
+    kids: {
       type: Number,
     },
     phone: {
@@ -27,19 +27,19 @@ const movieSchema = new mongoose.Schema(
     email: {
       type: String,
     },
-    additionalOptions: {
+    additional: {
       type: [String],
       enum: [
-        "мангал",
-        "квадроцикл",
-        "эндуро",
-        "снегоход",
-        "собака",
-        "самовар",
-        "ранний заезд",
-        "поздний заезд",
-        "ранний выезд",
-        "поздний выезд",
+        "Мангал",
+        "Квадроцикл",
+        "Эндуро",
+        "Снегоход",
+        "Собака",
+        "Самовар",
+        "Ранний заезд",
+        "Поздний заезд",
+        "Ранний выезд",
+        "Поздний выезд",
       ],
       default: [],
     },

@@ -1,5 +1,7 @@
 const allowedCors = [
   "http://localhost:3001",
+  "http://localhost:3000",
+  "http://localhost:3005",
   "https://mizdes.com",
   "https://www.mizdes.com",
   "http://193.222.62.32",

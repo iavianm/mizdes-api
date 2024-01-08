@@ -29,10 +29,10 @@ const getBookings = async (req, res, next) => {
 
 const getLatestBookings = async (req, res, next) => {
   try {
-    const latestRivieraBookings = await Booking.find({ cottageType: "riviera" })
+    const latestRivieraBookings = await Booking.find({ cottage: "riviera" })
       .sort({ createdAt: -1 })
       .limit(10);
-    const latestGrandisBookings = await Booking.find({ cottageType: "grandis" })
+    const latestGrandisBookings = await Booking.find({ cottage: "grandis" })
       .sort({ createdAt: -1 })
       .limit(10);
 
@@ -48,29 +48,29 @@ const updateBooking = async (req, res, next) => {
     const { bookingId } = req.params;
 
     const {
-      cottageType,
+      cottage,
       name,
       arrivalDate,
       departureDate,
       adults,
-      children,
+      kids,
       phone,
       email,
-      additionalOptions,
+      additional,
     } = req.body;
 
     const booking = await Booking.findByIdAndUpdate(
       bookingId,
       {
-        cottageType,
+        cottage,
         name,
         arrivalDate,
         departureDate,
         adults,
-        children,
+        kids,
         phone,
         email,
-        additionalOptions,
+        additional,
       },
       { new: true, runValidators: true },
     );
@@ -87,44 +87,45 @@ const updateBooking = async (req, res, next) => {
 const createBooking = async (req, res, next) => {
   try {
     const {
-      cottageType,
+      cottage,
       name,
       arrivalDate,
       departureDate,
       adults,
-      children,
+      kids,
       phone,
       email,
-      additionalOptions,
+      additional,
     } = req.body;
 
     const booking = await Booking.create({
-      cottageType,
+      cottage,
       name,
       arrivalDate,
       departureDate,
       adults,
-      children,
+      kids,
       phone,
       email,
-      additionalOptions,
+      additional,
     });
+
     if (!booking) {
       throw new Error404(bookingNotCreate);
     } else {
-      const additionalOptionsString =
-        booking.additionalOptions?.join(", ") || "не указано";
+      const additional =
+        booking.additional?.join(", ") || "не указано";
 
       let html = template({
-        cottageType: `${booking.cottageType || "любой"}`,
+        cottage: `${booking.cottage || "любой"}`,
         arrivalDate: `${booking.arrivalDate || "не указано"}`,
         departureDate: `${booking.departureDate || "не указано"}`,
         adults: `${booking.adults || "не указано"}`,
-        children: `${booking.children || "не указано"}`,
+        kids: `${booking.kids || "не указано"}`,
         name: `${booking.name || "не указано"}`,
         phone: `${booking.phone}`,
         email: `${booking.email || "не указано"}`,
-        additionalOptions: additionalOptionsString,
+        additional: additional,
         date: `${formatDate(booking.createdAt)}`,
       });
 

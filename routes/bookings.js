@@ -16,7 +16,7 @@ const {
   bookingUpdate,
 } = require("../utils/joiSchemes");
 
-router.get("/api/bookings", auth, getBookings);
+router.get("/api/bookings", getBookings);
 
 router.get("/api/bookings/latest", getLatestBookings);
 
@@ -24,14 +24,14 @@ router.post("/api/bookings", celebrate(bookingBody), createBooking);
 
 router.patch(
   "/api/bookings/:bookingId",
-  auth,
+  // auth,
   celebrate(bookingUpdate),
   updateBooking,
 );
 
 router.delete(
   "/api/bookings/:bookingId",
-  auth,
+  // auth,
   celebrate(bookingId),
   deleteBooking,
 );

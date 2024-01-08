@@ -100,7 +100,10 @@ const loginUser = async (req, res, next) => {
 
         res.cookie("jwt", token, cookieOptions);
 
-        res.send({ message: successLogin });
+      const userObject = user.toObject();
+      const fullUser = { ...userObject,  login: token };
+
+        res.send({ user: fullUser, message: successLogin });
     } catch (err) {
         next(err);
     }
