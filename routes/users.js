@@ -14,9 +14,9 @@ const { userLogin, userCreate, userUpdate } = require("../utils/joiSchemes");
 
 router.post("/api/signin", celebrate(userLogin), loginUser);
 // router.post("/api/signup", celebrate(userCreate), createUser);
-router.get("/api/signout", auth, logoutUser);
+router.get("/api/signout", logoutUser);
 
-router.get("/api/users/me", auth, getCurrentUser);
+router.get("/api/users/me", getCurrentUser);
 // router.patch("/users/me", auth, celebrate(userUpdate), updateUser);
 
 module.exports = router;
